@@ -52,7 +52,7 @@ const Home = () => {
           onDelete={handleDelete}
         />
       )) : data && data.filter((element) => (
-        `${element.first} ${element.last}`.toLowerCase().includes(searchText.toLowerCase())
+        `${element.tittle}`.toLowerCase().includes(searchText.toLowerCase())|| ` ${element.body}`.toLowerCase().includes(searchText.toLowerCase())
       )).map((item, index) => (
         <PostComponent
         key={index + item.id}

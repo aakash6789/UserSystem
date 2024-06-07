@@ -62,9 +62,9 @@ const PostComponent = ({Body,Title,isOpen,onClick,id,onUpdate,onDelete}) => {
   return (
     <div className='border pr-[5%] relative border-[#c8c8c9] rounded-lg mb-4'>
        <div className='flex '>
-        {(!isEdit || !isOpen) && <div className="text-sm flex ml-[6%]  max-sm:text-sm pt-2 pb-2">
+         <div className="text-sm flex ml-[6%]  max-sm:text-sm pt-2 pb-2">
             <h1 className='font-semibold pr-2 '>Post: {id}</h1>
-            </div>}
+            </div>
         
         <button className="ml-auto" onClick={onClick} >
         {isOpen?<KeyboardArrowUpIcon style={{ color: '#767679' }} />:<KeyboardArrowDownIcon style={{ color: '#767679' }} />}  
