@@ -6,7 +6,12 @@ const Register = () => {
  const [email,setEmail]=useState("");
  const [password,setPassword]=useState("");
     const saveUser=()=>{
-           localStorage.setItem('user',JSON.stringify({email:email,password:password}));
+      const getUser=[];
+      if(localStorage.getItem('allUsers')){
+        getUser.push((localStorage.getItem('allUsers')));
+      }
+             getUser.push(JSON.stringify({username:username,email:email,password:password}));
+           localStorage.setItem('allUsers',getUser);
            toast.success('User created successfully');
            
     }
