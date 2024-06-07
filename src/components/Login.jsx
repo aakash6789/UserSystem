@@ -22,7 +22,7 @@ const Login = () => {
     }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 text-black">
       {/* <h1>{loading?"Loading":""}</h1> */}
         <label htmlFor="email">email</label>
                  <input id="email" onChange={(e)=>setEmail(e.target.value)} className="text-black p-2 mb-2 border rounded-lg mb:4 border-gray-300 focus:outline-none focus:border-gray-600 " />

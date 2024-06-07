@@ -21,7 +21,7 @@ const Register = () => {
            
     }
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 text-black">
               {/* <h1>{loading?"Processing":"Sign up"}</h1> */}
                  <hr></hr>
                  <label htmlFor="username" >username</label>

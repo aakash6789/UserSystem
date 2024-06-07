@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Home from './components/Home.jsx';
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}   >
+    <Route path="/"   >
         <Route path="/" element={<Login/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
