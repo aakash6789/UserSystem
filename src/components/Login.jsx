@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
+import useAuth from '../hooks/useAuth.js';
+
+import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
-    const verifyUser=()=>{
-        const fetchedUser=JSON.parse(localStorage.getItem('user'));
-        console.log(fetchedUser.email);
-        if(email == fetchedUser.email && password == fetchedUser.password){
-            console.log("success");
+    const {login,allUsers}=useAuth();
+    const navigate=useNavigate();
+    const verifyUser=(e)=>{
+      e.preventDefault();
+      const loginUser=allUsers.find(element=>element.email===email && element.password===password);
+        if(loginUser){
+          login(loginUser);
+          console.log("Success");
+          navigate("/home");
+
+        }else{
+          console.log("Incorrect credentials");
         }
     }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 text-white">
       {/* <h1>{loading?"Loading":""}</h1> */}

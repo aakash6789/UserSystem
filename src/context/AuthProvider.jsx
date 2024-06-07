@@ -11,9 +11,11 @@ export const AuthProvider=({children})=>{
         const storedUsers=localStorage.getItem('allUsers');
         if(storedUser){
             setUser(JSON.parse(storedUser));
+            console.log(user);
         }
         if(storedUsers){
             setAllUsers(JSON.parse(storedUsers));
+            console.log(allUsers);
         }
     },[]);
 
@@ -24,7 +26,7 @@ export const AuthProvider=({children})=>{
     }
 
     const login=(currentUser)=>{
-            localStorage.setItem('currUser',JSON.stringify(JSON.stringify(currentUser)));
+            localStorage.setItem('currUser',JSON.stringify(currentUser));
             setUser(currentUser);
     }
 
@@ -41,3 +43,5 @@ export const AuthProvider=({children})=>{
     );
 
 }
+
+export default AuthContext;

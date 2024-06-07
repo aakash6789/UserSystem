@@ -1,17 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import useAuth from '../hooks/useAuth.js'
 const Register = () => {
  const [username,setUsername]=useState("");
  const [email,setEmail]=useState("");
  const [password,setPassword]=useState("");
-    const saveUser=()=>{
-      const getUser=[];
-      if(localStorage.getItem('allUsers')){
-        getUser.push((localStorage.getItem('allUsers')));
-      }
-             getUser.push(JSON.stringify({username:username,email:email,password:password}));
-           localStorage.setItem('allUsers',getUser);
+ const {register}=useAuth();
+    const saveUser=(e)=>{
+      // const getUser=[];
+      // if(localStorage.getItem('allUsers')){
+      //   getUser.push((localStorage.getItem('allUsers')));
+      // }
+      e.preventDefault();
+      const newUser={username:username,email:email,password:password};
+      register(newUser);
+          //    getUser.push(JSON.stringify({username:username,email:email,password:password}));
+          //  localStorage.setItem('allUsers',getUser);
            toast.success('User created successfully');
            
     }
