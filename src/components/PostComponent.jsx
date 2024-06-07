@@ -38,7 +38,7 @@ const PostComponent = ({Body,Title,isOpen,onClick,id,onUpdate,onDelete}) => {
     setIsEdit(true);
    
   };
-  const handleSave1 = () => {
+  const handleDelete = () => {
     axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`).then((res)=>{
         onDelete(id);
     }) .catch(error => {
@@ -84,8 +84,7 @@ const PostComponent = ({Body,Title,isOpen,onClick,id,onUpdate,onDelete}) => {
                 type='text'
                 onChange={(e) => {
                   const value = e.target.value;
-                  const filteredValue = value.replace(/[0-9]/g, '');
-                  setTittle(filteredValue);
+                  setTittle(value);
                 }}
                 value={tittle}
               />
@@ -125,7 +124,7 @@ const PostComponent = ({Body,Title,isOpen,onClick,id,onUpdate,onDelete}) => {
                   <div className='flex'>
                     <div className='ml-auto mt-[12%] w-[40%] flex justify-between'>
                       <button className='border border-gray-300 w-[50%] mr-[3%] rounded-lg ' onClick={() => setIsDeleteWindow(!isDeleteWindow)}>Cancel</button>
-                      <button className='bg-[#ff3500] w-[50%] rounded-lg p-1 text-white' onClick={handleSave1}>Delete</button>
+                      <button className='bg-[#ff3500] w-[50%] rounded-lg p-1 text-white' onClick={handleDelete}>Delete</button>
                     </div>
                   </div>
                 </div>
