@@ -33,12 +33,6 @@ const Navbar = () => {
         </div>:<div className='w-full flex justify-between'>
         <button className='rounded-md bg-blue-700 font-normal text-sm px-[3%] mt-2 py-[1%] block ml-auto text-white' onClick={handleLogout}>Logout</button>
         </div>}
-        {/* <div className='w-full flex justify-between'>
-        <NavLink to='/home'><h1>Home</h1></NavLink> 
-       <NavLink to='/login'><h1>Login</h1></NavLink> 
-       <NavLink to='/register'><h1>Register</h1></NavLink> 
-        </div> */}
-     
       </nav>
     </div>
   )

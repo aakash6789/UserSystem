@@ -8,21 +8,45 @@ const Register = () => {
  const [username,setUsername]=useState("");
  const [email,setEmail]=useState("");
  const [password,setPassword]=useState("");
+ const [usernameError, setUsernameError] = useState("");
+ const [emailError, setEmailError] = useState("");
+ const [passwordError, setPasswordError] = useState("");
  const navigate=useNavigate();
  const {register}=useAuth();
     const saveUser=(e)=>{
-      // const getUser=[];
-      // if(localStorage.getItem('allUsers')){
-      //   getUser.push((localStorage.getItem('allUsers')));
-      // }
+      if(!checkForInputs()){
+        return ;
+      }
       e.preventDefault();
       const newUser={username:username,email:email,password:password};
       register(newUser);
-          //    getUser.push(JSON.stringify({username:username,email:email,password:password}));
-          //  localStorage.setItem('allUsers',getUser);
-           toast.success('User created successfully');
-           
+           toast.success('User created successfully');       
     }
+    const checkForInputs = () => {
+      let isValid = true;
+      if (username.trim() === "") {
+        setUsernameError("Username is required");
+        isValid = false;
+      } else {
+        setUsernameError("");
+      }
+  
+      if (email.trim() === "") {
+        setEmailError("Email is required");
+        isValid = false;
+      } else {
+        setEmailError("");
+      }
+  
+      if (password.trim() === "") {
+        setPasswordError("Password is required");
+        isValid = false;
+      } else {
+        setPasswordError("");
+      }
+  
+      return isValid;
+    };
     useEffect(()=>{
       if(localStorage.getItem('currUser')){
         navigate("/home");
@@ -37,12 +61,14 @@ const Register = () => {
         onChange={(e) => setUsername(e.target.value)} 
         className="w-full text-black p-2 mb-4 border rounded-lg border-gray-300 focus:outline-none focus:border-gray-600" 
       />
+        {usernameError && <p className="text-red-500 text-xs mb-2">{usernameError}</p>}
       <label htmlFor="email" className="block text-left mb-2 font-semibold">Email</label>
       <input 
         id="email" 
         onChange={(e) => setEmail(e.target.value)} 
         className="w-full text-black p-2 mb-4 border rounded-lg border-gray-300 focus:outline-none focus:border-gray-600" 
       />
+        {emailError && <p className="text-red-500 text-xs mb-2">{emailError}</p>}
       
       <label htmlFor="password" className="block text-left mb-2 font-semibold">Password</label>
       <input 
@@ -51,6 +77,7 @@ const Register = () => {
         type="password" 
         className="w-full text-black p-2 mb-4 border rounded-lg border-gray-300 focus:outline-none focus:border-gray-600" 
       />
+      {passwordError && <p className="text-red-500 text-xs mb-4">{passwordError}</p>}
       <h2 className='text-[0.7rem] mt-2'>Already have an account? <span className='text-blue-700'><NavLink to='/login'>Log-in</NavLink></span> instead</h2>
       <button 
         className="w-[40%] bg-blue-700 text-white p-2 mt-4 border rounded-lg border-gray-300 focus:outline-none " 
