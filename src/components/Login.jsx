@@ -3,6 +3,8 @@ import { useState} from 'react';
 import useAuth from '../hooks/useAuth.js';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast';
 const Login = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
@@ -41,7 +43,7 @@ const Login = () => {
           navigate("/home");
 
         }else{
-          console.log("Incorrect credentials");
+          toast.error('Incorrect credentials',{ duration: 2000 });
         }
     }
     useEffect(()=>{
@@ -52,6 +54,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-black">
+       <Toaster position='top-right'/>
   <div className="w-full max-w-xs">
     <label htmlFor="email" className="block text-left mb-2 font-semibold">Email</label>
     <input 

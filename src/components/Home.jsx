@@ -5,6 +5,8 @@ import PostComponent from './PostComponent.jsx';
 import Popup from './Popup.jsx';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
+import toast from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const {user,logOut}=useAuth();
@@ -15,10 +17,20 @@ const Home = () => {
     const [tittle, setTittle] = useState('');
     const [body, setBody] = useState('');
     const[id,setId]=useState(null);
+    const [idError, setIdError] = useState("");
     const navigate=useNavigate();
     const handleToggle = (index) => {
       setOpenIndex(openIndex === index ? null : index);
     };
+    const checkForInputs = () => {
+      let isValid = true;
+      if (id.trim() === "") {
+        setIdError("Id is required");
+        isValid = false;
+      } else {
+        setIdError("");
+      }
+    }
     const handleUpdate = (id, updatedItem) => {
         const updatedData = data.map(item => item.id === id ? { ...item, ...updatedItem } : item);
         setData(updatedData);
@@ -29,6 +41,9 @@ const Home = () => {
         setData(updatedData);
       }
       const handleCreate=()=>{
+        if(!checkForInputs()){
+          return ;
+        }
         console.log("create");
         // const newData=[{id:id,tittle:tittle,body:body},...data];
         const newData={id:id,tittle:tittle,body:body};
@@ -36,6 +51,7 @@ const Home = () => {
             console.log(res.data);
            const newArr=[{id:res.data.id,title:res.data.tittle,body:res.data.body},...data];
            setData(newArr);
+           toast.success('Post created successfully',{ duration: 5000 }); 
         }
         ).catch(error => {
             console.error('Error creating post:', error);
@@ -43,13 +59,6 @@ const Home = () => {
         setData(newData);
         setIsCreate(false);
       }
-      // const handleLogout=()=>{
-      //   logOut();
-      //   const loggedOutUser=localStorage.getItem('currUser');
-      //   if(!loggedOutUser){
-      //       navigate('/login');
-      //   }
-      // }
     useEffect(()=>{
         axios.get('https://jsonplaceholder.typicode.com/posts').then((response)=>{
             setData(response.data);}) 
@@ -59,6 +68,7 @@ const Home = () => {
     },[])
   return (
     <div className='max-w-xl mx-auto py-6 px-[5%]'>
+      <Toaster position='top-right'/>
       {user?<h1 className='text-black font-bold text-lg text-center mt-[5%] mb-[15%] '>Welcome {user.username} ! </h1>:<h1 className='text-black'>Loading .. </h1>}
       {/* <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] block ml-auto text-white' onClick={handleLogout}>Logout</button> */}
       <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] text-white' onClick={()=>setIsCreate(!isCreate)}>Create Post</button>
@@ -81,6 +91,7 @@ const Home = () => {
                 }}
                 value={id}
               />
+               {idError && <p className="text-red-500 text-xs mb-2">{idError}</p>}
                         <h1 className='text-sm font-semibold mt-[2%] mb-2'>Tittle</h1>
                     <input
                 className={`h-[30px] w-[80%] max-sm:w-[90%] rounded-lg text-black pl-[4%] border`}
