@@ -43,13 +43,13 @@ const Home = () => {
         setData(newData);
         setIsCreate(false);
       }
-      const handleLogout=()=>{
-        logOut();
-        const loggedOutUser=localStorage.getItem('currUser');
-        if(!loggedOutUser){
-            navigate('/login');
-        }
-      }
+      // const handleLogout=()=>{
+      //   logOut();
+      //   const loggedOutUser=localStorage.getItem('currUser');
+      //   if(!loggedOutUser){
+      //       navigate('/login');
+      //   }
+      // }
     useEffect(()=>{
         axios.get('https://jsonplaceholder.typicode.com/posts').then((response)=>{
             setData(response.data);}) 
@@ -60,7 +60,7 @@ const Home = () => {
   return (
     <div className='max-w-xl mx-auto py-6 px-[5%]'>
       {user?<h1 className='text-black font-bold text-lg text-center mt-[5%] mb-[15%] '>Welcome {user.username} ! </h1>:<h1 className='text-black'>Loading .. </h1>}
-      <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] block ml-auto text-white' onClick={handleLogout}>Logout</button>
+      {/* <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] block ml-auto text-white' onClick={handleLogout}>Logout</button> */}
       <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] text-white' onClick={()=>setIsCreate(!isCreate)}>Create Post</button>
       <Popup trigger={isCreate} setTrigger={setIsCreate}>
                 <div className='bg-white border mt-[12vh] lg:w-[35vw] max-sm:w-[60vw] sm:w-[50vw] sm:text-md rounded-lg border-[#c4c4c8] pt-[5%] max-sm:text-sm pb-[3%] px-[3%]'>

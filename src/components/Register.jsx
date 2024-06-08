@@ -1,12 +1,14 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import toast from 'react-hot-toast'
 import useAuth from '../hooks/useAuth.js'
 import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const Register = () => {
  const [username,setUsername]=useState("");
  const [email,setEmail]=useState("");
  const [password,setPassword]=useState("");
+ const navigate=useNavigate();
  const {register}=useAuth();
     const saveUser=(e)=>{
       // const getUser=[];
@@ -21,23 +23,28 @@ const Register = () => {
            toast.success('User created successfully');
            
     }
+    useEffect(()=>{
+      if(localStorage.getItem('currUser')){
+        navigate("/home");
+      }
+    },[])
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-black">
     <div className="w-full max-w-xs">
-      <label htmlFor="email" className="block text-left mb-2">Username</label>
+      <label htmlFor="email" className="block text-left mb-2 font-semibold">Username</label>
       <input 
         id="username" 
         onChange={(e) => setUsername(e.target.value)} 
         className="w-full text-black p-2 mb-4 border rounded-lg border-gray-300 focus:outline-none focus:border-gray-600" 
       />
-      <label htmlFor="email" className="block text-left mb-2">Email</label>
+      <label htmlFor="email" className="block text-left mb-2 font-semibold">Email</label>
       <input 
         id="email" 
         onChange={(e) => setEmail(e.target.value)} 
         className="w-full text-black p-2 mb-4 border rounded-lg border-gray-300 focus:outline-none focus:border-gray-600" 
       />
       
-      <label htmlFor="password" className="block text-left mb-2">Password</label>
+      <label htmlFor="password" className="block text-left mb-2 font-semibold">Password</label>
       <input 
         id="password" 
         onChange={(e) => setPassword(e.target.value)} 

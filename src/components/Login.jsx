@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useState } from 'react';
+import { useState} from 'react';
 import useAuth from '../hooks/useAuth.js';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -13,25 +13,29 @@ const Login = () => {
       const loginUser=allUsers.find(element=>element.email===email && element.password===password);
         if(loginUser){
           login(loginUser);
-          console.log("Success");
           navigate("/home");
 
         }else{
           console.log("Incorrect credentials");
         }
     }
+    useEffect(()=>{
+      if(localStorage.getItem('currUser')){
+        navigate("/home");
+      }
+    },[]);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-black">
   <div className="w-full max-w-xs">
-    <label htmlFor="email" className="block text-left mb-2">Email</label>
+    <label htmlFor="email" className="block text-left mb-2 font-semibold">Email</label>
     <input 
       id="email" 
       onChange={(e) => setEmail(e.target.value)} 
       className="w-full text-black p-2 mb-4 border rounded-lg border-gray-300 focus:outline-none focus:border-gray-600" 
     />
     
-    <label htmlFor="password" className="block text-left mb-2">Password</label>
+    <label htmlFor="password" className="block text-left mb-2 font-semibold">Password</label>
     <input 
       id="password" 
       onChange={(e) => setPassword(e.target.value)} 
