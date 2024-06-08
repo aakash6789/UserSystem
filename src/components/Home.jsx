@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const {user,logOut}=useAuth();
     const [data, setData] = useState(null);
-    const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState('');        // To implement the search functionality, searchText is used to dynamically render posts
     const [openIndex, setOpenIndex] = useState(null);
     const[isCreate,setIsCreate]=useState(false);
     const [tittle, setTittle] = useState('');
@@ -30,15 +30,18 @@ const Home = () => {
       } else {
         setIdError("");
       }
+      return isValid;
     }
     const handleUpdate = (id, updatedItem) => {
         const updatedData = data.map(item => item.id === id ? { ...item, ...updatedItem } : item);
         setData(updatedData);
+        toast.success('Post updated successfully',{ duration: 5000 });
       };
       const handleDelete=(id)=>{
         const updatedData = data.filter(item => item.id != id );
         // console.log(updatedData);
         setData(updatedData);
+        toast.success('Post deleted successfully',{ duration: 5000 });
       }
       const handleCreate=()=>{
         if(!checkForInputs()){
@@ -69,7 +72,7 @@ const Home = () => {
   return (
     <div className='max-w-xl mx-auto py-6 px-[5%]'>
       <Toaster position='top-right'/>
-      {user?<h1 className='text-black font-bold text-lg text-center mt-[5%] mb-[15%] '>Welcome {user.username} ! </h1>:<h1 className='text-black'>Loading .. </h1>}
+      {user?<h1 className='text-black mt-[5%] font-bold text-lg text-center mt-[5%] mb-[15%] '>Welcome {user.username} ! </h1>:<h1 className='text-black'>Loading .. </h1>}
       {/* <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] block ml-auto text-white' onClick={handleLogout}>Logout</button> */}
       <button className='rounded-md bg-blue-700 text-sm px-[3%] py-[1%] text-white' onClick={()=>setIsCreate(!isCreate)}>Create Post</button>
       <Popup trigger={isCreate} setTrigger={setIsCreate}>
@@ -80,10 +83,10 @@ const Home = () => {
                 className='hover:cursor-pointer' />
                   </div>
                   <div className='flex'>
-                    <div className='mr-auto mt-[5%] w-[100%]  justify-between'>
+                    <div className='mr-auto mt-[5%] w-[100%]  justify-between mr-auto'>
                     <h1 className='text-sm font-semibold mb-2'>Id</h1>
                     <input
-                className={`h-[30px] w-[80%] max-sm:w-[90%] rounded-lg text-black pl-[4%] border`}
+                className='h-[30px] w-[80%] max-sm:w-[90%] rounded-lg text-black pl-[4%] border'
                 type='text'
                 onChange={(e) => {
                   const value = e.target.value;
@@ -94,7 +97,7 @@ const Home = () => {
                {idError && <p className="text-red-500 text-xs mb-2">{idError}</p>}
                         <h1 className='text-sm font-semibold mt-[2%] mb-2'>Tittle</h1>
                     <input
-                className={`h-[30px] w-[80%] max-sm:w-[90%] rounded-lg text-black pl-[4%] border`}
+                className='h-[30px] w-[80%] max-sm:w-[90%] rounded-lg text-black pl-[4%] border'
                 type='text'
                 onChange={(e) => {
                   setTittle( e.target.value);
@@ -103,13 +106,13 @@ const Home = () => {
               />
                         <h1 className='text-sm font-semibold mt-[3%] mb-2'>Body</h1>
                         <textarea
-              className={`h-[180px] max-sm:w-[90%] text-black pt-[3%] px-[2%] w-[80%] rounded-xl pl-[2%] border `}
+              className='h-[180px] max-sm:w-[90%] text-black pt-[3%] px-[2%] w-[80%] rounded-xl pl-[2%] border'
               type='text'
               onChange={(e) => {
                 setBody(e.target.value)}}
               value={body}
             ></textarea>
-                       <button className='rounded-md bg-blue-700 text-sm block px-[5%] mt-4 py-[1%] text-white' onClick={handleCreate}>Create</button>
+                       <button className='rounded-md mt-4 bg-blue-700 text-sm block px-[5%] mt-4 py-[1%] text-white' onClick={handleCreate}>Create</button>
                     </div>
                   </div>
                 </div>

@@ -20,11 +20,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<Login/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        {/* <Route exact path='/home' element={<Home/>}/> */}
         <Route exact path='/home' element={<ProtectedRoute component={Home}/>}/>
-        {/* <Route exact path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}>
-            <Route exact path='/' element={}/>
-          </Route> */}
   </Route>
   )
 );
